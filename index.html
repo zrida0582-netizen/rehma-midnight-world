@@ -84,3 +84,45 @@ document.getElementById("openButton").addEventListener("click", function () {
 </script>
 </body>
 </html>
+
+</footer>
+
+<script>
+function openSurprise(){
+  const surprise = document.getElementById("surprise");
+  surprise.classList.remove("hidden");
+  surprise.scrollIntoView({behavior:"smooth"});
+}
+
+function addPreviews(inputId, galleryId, isVideo){
+  const input = document.getElementById(inputId);
+  const gallery = document.getElementById(galleryId);
+
+  input.addEventListener("change", function(){
+    gallery.replaceChildren();
+
+    Array.from(this.files).forEach(function(file){
+      const url = URL.createObjectURL(file);
+      const media = document.createElement(isVideo ? "video" : "img");
+
+      media.src = url;
+
+      if(isVideo){
+        media.controls = true;
+        media.playsInline = true;
+      }else{
+        media.alt = file.name;
+      }
+
+      gallery.appendChild(media);
+    });
+  });
+}
+
+addPreviews("photos", "photoGallery", false);
+addPreviews("aesthetic", "aestheticGallery", false);
+addPreviews("videos", "videoGallery", true);
+</script>
+
+</body>
+</html>
